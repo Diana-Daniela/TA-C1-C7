@@ -22,11 +22,11 @@ class Person: # clasa Parinte
 class Student(Person):
     def __init__(self,nume,varsta,adresa,facultate,an_studiu):
         # super() - reprezinta clasa parinte - person in cazul nostru
-        # cu super () apelam constructorul clasei parinte
+        # cu super() apelam constructorul clasei parinte
         super().__init__(nume,varsta,adresa)
         self.facultate = facultate
         self.an_studiu = an_studiu
-    def descriere(self): # fac suprascriere la metoda "descrie" din clasa parintelui
+    def descriere(self): # fac suprascriere la metoda "descriere" din clasa parintelui
         super().descriere()
         print(self.facultate,self.an_studiu)
 

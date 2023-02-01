@@ -10,8 +10,8 @@ Utilizatorul stie ce face functionalitatea, dar nu si cum.
 Clasa parinte care este o clasa abstracta, nu putem sa cream obiecte din ea, ci doar sa o folosim ca un template pentru clasele copil
 
 In abstractizare avem 2 concepte:
- - interfata -> contine doar metode abstracte - In JAVA exista interfete propriu-zise (Interface numeInterfata)
- - clasa abstracta care contine atat metode absttracte, cat si metode proprii cu logica (In JAVA exista Abstarct Class numeclasa ....)
+ - interfata -> o clasa care contine doar metode abstracte si atat - In JAVA exista interfete propriu-zise (Interface numeInterfata)
+ - clasa abstracta care contine atat metode abstracte, cat si metode proprii cu logica in interiorul lor (In JAVA exista Abstract Class numeclasa ....)
 
 Clasa abstracta trebuie sa mosteneasca clasa ABC (Abstract Class Method)
 Fiecare metoda a clasei abstracte trebuie sa arunce exceptia NotImplemented Error sau pass
@@ -21,11 +21,17 @@ O metoda abstracta e o metoda care nu are corp (fara logica)
 
 '''
 
+# def add(a,b,c=0):
+#     return(a+b+c)
+# print(add(1,2,3))
+# print(add(1,2))
+
+
 from abc import ABC, abstractmethod
 
-class Vehicul(ABC):
+class Vehicul(ABC): # asa stim ca clasa Vehicul e clasa abstracta mostenind clasa ABC
 
-    @abstractmethod     #decorator ca sa marcam acesta metoda ca abstracta
+    @abstractmethod     #decorator ca sa marcam acesta metoda ca abstracta, implementarea lor se face la clasele copil
     def nr_roti(self):
         raise NotImplementedError
 
@@ -33,42 +39,32 @@ class Vehicul(ABC):
     def nr_locuri(self):
         pass                     # metode abstracte neavand logica si pentru a preveni anumite erori,
                                  # scriem in corpul metodelor pass sau NotImplementedError
-
     @classmethod
     def metoda_logica_proprie(self):
         print("Aici este o metoda cu logica proprie, nu trebuie implementata in clasa copil")
-
-
 class Masina(Vehicul):
-
     def __init__(self,culoare):
         self.culoare= culoare
-
-    def nr_roti(self):
+    def nr_roti(self):  # suntem obligati sa implementam toate metodele abstracte din clasa abstracta parinte
         return 4
-
     def nr_locuri(self):
         return 5
-
 class Bicicleta(Vehicul):
     def __init__(self,culoare,roti_ajutatoare = False):
         self.culoare = culoare
         self.roti_ajutatoare = roti_ajutatoare
-
     def nr_roti(self):
         if self.roti_ajutatoare: # echivalentul lui: self.roti_ajutatoare == True
             return 4
         else:
             return 2
-
     def nr_locuri(self):
         return 1
 
-
-masina = Masina("verde")
+masina = Masina("verde")  # cream un obiect de tipul masina-nu ne lasa pana nu definim metodele abstracte din clasa abstracta
 print(masina.nr_roti())
 print(masina.nr_locuri())
-masina.metoda_logica_proprie()
+masina.metoda_logica_proprie() # are logica proprie, nu trebuie implementata in clasa copil
 
 bicicleta = Bicicleta("rosu")
 print(bicicleta.nr_roti())
